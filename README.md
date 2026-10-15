@@ -34,6 +34,26 @@ FixFlow is a comprehensive, AI-powered equipment fault reporting and maintenance
 
 ---
 
+## 🛠️ Tech Stack Architecture
+
+| Layer | Technologies & Libraries | Purpose / Details |
+| :--- | :--- | :--- |
+| **Backend Framework** | **Python 3.12+**, **Flask 3.0+** | High-performance micro-framework providing RESTful API endpoints and lightweight routing |
+| **Database** | **SQLite3** | Embedded ACID-compliant relational database with automatic migration, indexing, and seed data |
+| **WSGI Server** | **Gunicorn 22.0+** | Production-ready HTTP server configured via `Procfile` for cloud deployment (Render, Heroku, Railway) |
+| **Frontend Core** | **HTML5 Semantic Markup**, **Modern JavaScript (ES6+)** | Dynamic single-page application (SPA) architecture with state management and debounced fetch calls |
+| **Styling & Design System** | **Tailwind CSS**, **Custom CSS Glassmorphism** | Midnight dark-slate color palette (`#090d16`), glowing drop shadows, and responsive grid layouts |
+| **Data Visualization** | **Chart.js 4.4+** | Interactive **Status Doughnut Chart** (Open / In Progress / Resolved) and **Location Breakdown Bar Chart** |
+| **AI & NLP Engine** | **Lexical & Semantic NLP Triage Algorithm** | Real-time keyword scanning, 0–100 urgency scoring, hazard detection, and auto-priority assignment |
+| **Technician Copilot** | **Rule-Based Diagnostic Knowledge Graph** | Root-cause generation, tool checklist recommendation, and step-by-step resolution protocol |
+| **Browser Speech Engine** | **Web Speech API (`webkitSpeechRecognition`)** | In-browser speech-to-text dictation for hands-free campus fault reporting |
+| **Interactive Workflow** | **HTML5 Drag & Drop API** | Native drag-and-drop Kanban board for effortless status promotions (`Open` ➔ `In Progress` ➔ `Resolved`) |
+| **Micro-Interactions & Audio** | **Web Audio API** | Zero-dependency synthesized audio chimes for success, status updates, and emergency warnings |
+| **Iconography & Fonts** | **Lucide Icons**, **Google Fonts (`Outfit`, `Plus Jakarta Sans`)** | Modern crisp vector icons and clean geometric typography |
+| **Version Control & DevOps** | **Git**, **GitHub**, **Procfile** | Branch management, clean commit history, and cloud deploy readiness |
+
+---
+
 ## 🚀 How to Run Locally
 
 ### Prerequisites
