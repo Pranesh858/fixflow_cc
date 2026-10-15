@@ -8,7 +8,11 @@ from datetime import datetime, timedelta
 from flask import Flask, jsonify, request, render_template_string, g, Response
 
 app = Flask(__name__)
-DB_PATH = os.environ.get("DB_PATH", "fixflow.db")
+# Detect Vercel serverless or cloud container environments
+if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+    DB_PATH = os.environ.get("DB_PATH", "/tmp/fixflow.db")
+else:
+    DB_PATH = os.environ.get("DB_PATH", "fixflow.db")
 
 PRIORITIES = ["Low", "Medium", "High", "Critical"]
 STATUSES = ["Open", "In Progress", "Resolved"]
@@ -32,8 +36,22 @@ TECHNICIANS = [
 ]
 
 # ---------- DATABASE HELPERS & MIGRATION ----------
+_db_initialized = False
+
+
+def ensure_db():
+    global _db_initialized
+    if not _db_initialized or not os.path.exists(DB_PATH):
+        try:
+            init_db()
+            _db_initialized = True
+        except Exception:
+            pass
+
+
 def get_db():
     if "db" not in g:
+        ensure_db()
         g.db = sqlite3.connect(DB_PATH)
         g.db.row_factory = sqlite3.Row
     return g.db
@@ -47,6 +65,10 @@ def close_db(_):
 
 
 def init_db():
+    # Ensure directory exists for DB_PATH (e.g. /tmp/ on Vercel)
+    db_dir = os.path.dirname(os.path.abspath(DB_PATH))
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
     db = sqlite3.connect(DB_PATH)
     cur = db.cursor()
     cur.execute(
